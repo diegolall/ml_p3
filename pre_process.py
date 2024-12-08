@@ -424,9 +424,31 @@ def preprocess_data(raw_data,threshold_missing_points,titles,frequencies_number,
         return titles_table, data
     else:
         return data
+    
+def drop_frequencies(data, num_freq_to_keep):
+    """
+    Function to keep the specified number of frequency columns from the data and drop the rest.
+    
+    parameters:
+    data (pd.DataFrame): The input data frame.
+    num_freq_to_keep (int): The number of frequency columns to keep.
+    
+    returns:
+    pd.DataFrame: The data frame with only the specified frequency columns kept.
+    """
+    # Get the title of the table
+    print(type(data))
+    title = data.columns.tolist()
+
+    # Identify columns to drop
+    columns_to_drop = [col for col in title if 'freq' in col and not any(col.endswith(f'freq {i}') for i in range(1, num_freq_to_keep + 1))]
+
+    # Drop the identified columns
+    data.drop(columns=columns_to_drop, inplace=True)
+
+    return data
 
 if __name__ == '__main__':
-
     #Data importation
     X_train, y_train, X_test = load_data("./")
     titles_table, X_train_preprocess = preprocess_data(raw_data=X_train, threshold_missing_points=0.05,
@@ -442,3 +464,4 @@ if __name__ == '__main__':
         for row in X_train_preprocess:
             line = "\t".join(map(str, row))
             file.write(line + "\n")
+    print("skipped ?")
