@@ -31,6 +31,6 @@ if __name__ == '__main__':
     X_train = drop_frequencies(X,n_freq)
     y_train = y_train_unprocessed
     
-    print("Data loaded and preprocessed with frequencies dropped \nX_train shape: ", X_train.shape, " y_train shape: ", y_train.shape, "\nNumber of frequencies: ", n_freq)
+    print("Data loaded and preprocessed with frequencies dropped \nX_train shape: ", X_train.shape, " y_train shape: ", y_train.shape, "\nNumber of frequencies: ", n_freq,"\nReady to train the model")
     
     
